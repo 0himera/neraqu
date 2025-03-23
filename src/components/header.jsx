@@ -1,6 +1,11 @@
+import { useState, useRef } from 'react';
 import DropdownMenu from './DropdownMenu';
 
 export default function Header() {
+  const [hoveredItem, setHoveredItem] = useState(null);
+  const [menuVisible, setMenuVisible] = useState(false);
+  const navRef = useRef(null);
+  
   const navItems = [
     { 
       id: 1, 
@@ -31,6 +36,25 @@ export default function Header() {
     },
   ];
 
+  const activeSubmenu = navItems.find(item => item.id === hoveredItem)?.submenu;
+  
+  const handleNavEnter = () => {
+    setMenuVisible(true);
+  };
+  
+  const handleNavLeave = () => {
+    setMenuVisible(false);
+  };
+  
+  const handleItemHover = (id) => {
+    setHoveredItem(id);
+    
+    // Ensure menu is visible when hovering over an item
+    if (!menuVisible) {
+      setMenuVisible(true);
+    }
+  };
+
   return (
     <div
       className="fixed top-0 left-0 right-0 z-50 h-[35px] max-w-[960px] 
@@ -40,18 +64,33 @@ export default function Header() {
                  text-white"
     >
       <h1 className="text-black text-xl font-bold font-mono">nera*qu</h1>
-      <ul className="flex items-center gap-4">
-        {navItems.map((item) => (
-          <li key={item.id} className="relative group">
-            <a href={item.link} className="text-black text-lg font-mono">
-              {item.name}
-            </a>
-            
-            {/* Use the DropdownMenu component */}
-            <DropdownMenu submenu={item.submenu} />
-          </li>
-        ))}
-      </ul>
+      
+      <div 
+        className="relative"
+        ref={navRef}
+        onMouseEnter={handleNavEnter}
+        onMouseLeave={handleNavLeave}
+      >
+        <ul className="flex items-center gap-4">
+          {navItems.map((item) => (
+            <li 
+              key={item.id} 
+              className="relative"
+              onMouseEnter={() => handleItemHover(item.id)}
+            >
+              <a href={item.link} className="text-black text-lg font-mono">
+                {item.name}
+              </a>
+            </li>
+          ))}
+        </ul>
+        
+        {/* Static menu that changes content based on hover */}
+        <DropdownMenu 
+          submenu={activeSubmenu}
+          isVisible={menuVisible}
+        />
+      </div>
     </div>
   );
 }
