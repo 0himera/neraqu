@@ -5,6 +5,7 @@ export default function Header() {
   const [hoveredItem, setHoveredItem] = useState(null);
   const [menuVisible, setMenuVisible] = useState(false);
   const [isScrolled, setIsScrolled] = useState(false);
+  const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const navRef = useRef(null);
   
   // Добавляем эффект для отслеживания скролла
@@ -96,20 +97,39 @@ export default function Header() {
     }
   };
 
+  const toggleMobileMenu = () => {
+    setMobileMenuOpen(!mobileMenuOpen);
+  };
+
   return (
     <div
-      className={`fixed top-0 left-0 right-0 z-50 h-[35px] max-w-[960px] 
+      className={`fixed top-0 left-0 right-0 z-50 h-[35px] md:h-[35px] max-w-[960px] 
                  mt-3 mx-[5%] lg:mx-auto rounded-full flex 
-                 items-center justify-around
+                 items-center justify-between md:justify-around
                  transition-all duration-500 ease-in-out
                  ${isScrolled ? 'bg-black/20' : 'bg-black/10'}
                  backdrop-blur-lg border border-zinc-600/20 shadow-lg
                  text-white`}
     >
-      <h1 className="text-black text-xl font-bold font-mono transition-all duration-300">nera*qu</h1>
+      <h1 className="text-black text-xl font-bold font-mono transition-all duration-300 ml-4 md:ml-0">nera*qu</h1>
       
+      {/* Mobile menu button */}
+      <button 
+        className="md:hidden mr-4 text-black p-1 rounded focus:outline-none"
+        onClick={toggleMobileMenu}
+      >
+        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-6 h-6">
+          {mobileMenuOpen ? (
+            <path strokeLinecap="round" strokeLinejoin="round" d="M6 18L18 6M6 6l12 12" />
+          ) : (
+            <path strokeLinecap="round" strokeLinejoin="round" d="M3.75 6.75h16.5M3.75 12h16.5m-16.5 5.25h16.5" />
+          )}
+        </svg>
+      </button>
+      
+      {/* Desktop navigation */}
       <div 
-        className="relative"
+        className="relative hidden md:block"
         ref={navRef}
         onMouseEnter={handleNavEnter}
         onMouseLeave={handleNavLeave}
@@ -137,6 +157,52 @@ export default function Header() {
           navImage={navItems.find(item => item.id === hoveredItem)?.image}
         />
       </div>
+
+      {/* Mobile menu */}
+      {mobileMenuOpen && (
+        <div className="fixed top-[50px] left-0 right-0 bg-black/90 backdrop-blur-lg z-50 h-auto md:hidden">
+          <ul className="flex flex-col items-center gap-4 py-6">
+            {navItems.map((item) => (
+              <li key={item.id} className="relative">
+                <a 
+                  href={item.link} 
+                  className="text-white text-lg font-mono block py-2"
+                >
+                  {item.name}
+                </a>
+                {item.submenu && (
+                  <ul className="pl-6 py-1">
+                    {item.submenu.map((subItem) => (
+                      <li key={subItem.id}>
+                        <a 
+                          href={subItem.link} 
+                          className="text-white/80 text-sm font-mono block py-1.5"
+                        >
+                          {subItem.name}
+                        </a>
+                        {subItem.submenu && (
+                          <ul className="pl-4">
+                            {subItem.submenu.map((nestedItem) => (
+                              <li key={nestedItem.id}>
+                                <a 
+                                  href={nestedItem.link} 
+                                  className="text-white/60 text-xs font-mono block py-1"
+                                >
+                                  {nestedItem.name}
+                                </a>
+                              </li>
+                            ))}
+                          </ul>
+                        )}
+                      </li>
+                    ))}
+                  </ul>
+                )}
+              </li>
+            ))}
+          </ul>
+        </div>
+      )}
     </div>
   );
 }
