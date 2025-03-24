@@ -30,13 +30,13 @@ export default function DropdownMenu({ submenu, isVisible, navImage }) {
   const activeNestedMenu = submenu.find(item => item.id === hoveredItem)?.submenu;
   
   return (
-    <div className={`absolute mt-0 origin-top-left right-[-140px]
-                    rounded-md shadow-lg w-[400px] h-[185px]
+    <div className={`absolute mt-[-1px] origin-top-left right-[-140px]
+                    rounded-md shadow-lg w-[420px] h-[185px]
                     transition-all duration-500 ease-in-out transform shadow-sm
-                    backdrop-blur-sm
+                    backdrop-blur-sm 
                     ${isVisible ? 'opacity-100 visible translate-y-0' : 'opacity-0 invisible translate-y-2'} 
                     z-51`}>
-      <div className="flex py-1 rounded-md">
+      <div className="flex py-0 rounded-md">
         <div className="w-1/2 relative">
           {submenu.map((subItem) => (
             <div key={subItem.id}>
@@ -58,7 +58,7 @@ export default function DropdownMenu({ submenu, isVisible, navImage }) {
           
           {/* Fixed position nested submenu */}
           {activeNestedMenu && (
-            <div className={`absolute top-0 left-[130px] w-32 bg-black/10 rounded-md shadow-lg
+            <div className={`absolute top-0 left-[130px] w-[148px] bg-black/10 rounded-l-lg
                           backdrop-blur-sm
                           transition-all duration-300 ease-in-out transform z-52
                           ${activeNestedMenu ? 'opacity-100 visible translate-x-0' : 'opacity-0 invisible -translate-x-2'}`}>
@@ -68,7 +68,7 @@ export default function DropdownMenu({ submenu, isVisible, navImage }) {
                   href={nestedItem.link}
                   className="block px-4 py-2 text-sm text-black 
                            transition-all duration-300 ease-in-out
-                           hover:bg-black/10 font-mono"
+                           hover:bg-black/10 font-mono rounded-l-lg"
                 >
                   <span className="transition-all duration-300 ease-in-out">
                     {nestedItem.name}
@@ -84,9 +84,9 @@ export default function DropdownMenu({ submenu, isVisible, navImage }) {
               src={navImage} 
               alt="Navigation" 
               onLoad={() => setIsImageLoaded(true)}
-              className={`rounded-lg w-[140px] h-[180px] object-cover 
+              className={`rounded-r-lg w-[140px] h-[185px] object-cover 
                 transition-all duration-500 ease-in-out transform
-                ${showContent && isImageLoaded ? 'opacity-90 scale-100' : 'opacity-0 scale-95'}`}
+                ${showContent && isImageLoaded ? 'opacity-90 scale-100' : 'opacity-30 scale-99'}`}
             />
           )}
         </div>
