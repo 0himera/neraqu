@@ -1,23 +1,24 @@
 import { useState, useEffect } from 'react';
 
-export default function DropdownMenu({ submenu, isVisible }) {
-     const [showContent, setShowContent] = useState(false);
+export default function DropdownMenu({ submenu, isVisible, navImage }) {
+  const [showContent, setShowContent] = useState(false);
   const [prevSubmenu, setPrevSubmenu] = useState(null);
+  const [hoveredItem, setHoveredItem] = useState(null);
+  const [isImageLoaded, setIsImageLoaded] = useState(false);
   
   useEffect(() => {
-    // Если это первое открытие меню
     if (isVisible && !prevSubmenu) {
-      setShowContent(true);
+      const timer = setTimeout(() => setShowContent(true), 100);
+      return () => clearTimeout(timer);
     } 
-    // Если меню уже было открыто и изменился submenu
     else if (isVisible && prevSubmenu !== submenu) {
       setShowContent(false);
       const timer = setTimeout(() => setShowContent(true), 300);
       return () => clearTimeout(timer);
     } 
-    // Если меню закрывается
     else if (!isVisible) {
       setShowContent(false);
+      setHoveredItem(null);
     }
     
     setPrevSubmenu(submenu);
@@ -25,25 +26,70 @@ export default function DropdownMenu({ submenu, isVisible }) {
 
   if (!submenu) return null;
   
+  // Получаем активное подменю
+  const activeNestedMenu = submenu.find(item => item.id === hoveredItem)?.submenu;
+  
   return (
     <div className={`absolute mt-0 origin-top-left right-[-140px]
-                    rounded-md shadow-lg w-[400px] h-[200px]
-                    transition-all duration-300 transform shadow-sm
-                    ${isVisible ? 'opacity-90 visible translate-y-0' : 'opacity-0 invisible translate-y-2'} 
+                    rounded-md shadow-lg w-[400px] h-[185px]
+                    transition-all duration-500 ease-in-out transform shadow-sm
+                    backdrop-blur-sm
+                    ${isVisible ? 'opacity-100 visible translate-y-0' : 'opacity-0 invisible translate-y-2'} 
                     z-51`}>
-      <div className="py-1 rounded-md">
-        {submenu.map((subItem) => (
-          <a
-            key={subItem.id}
-            href={subItem.link}
-            className="block px-4 py-2 w-40 rounded-sm text-sm text-black 
-            hover:bg-black/10 hover:duration-300 font-mono transition-opacity duration-300 delay-100"
-          >
-            <span className={`transition-opacity duration-80 ${showContent ? 'opacity-100' : 'opacity-0'}`}>
-              {subItem.name}
-            </span>
-          </a>
-        ))}
+      <div className="flex py-1 rounded-md">
+        <div className="w-1/2 relative">
+          {submenu.map((subItem) => (
+            <div key={subItem.id}>
+              <a
+                href={subItem.link}
+                className={`block px-4 py-2 w-32 rounded-sm text-sm text-black 
+                transition-all duration-300 ease-in-out
+                hover:bg-black/10 font-mono
+                ${hoveredItem === subItem.id ? 'bg-black/10' : ''}`}
+                onMouseEnter={() => setHoveredItem(subItem.id)}
+              >
+                <span className={`transition-all duration-300 ease-in-out
+                              ${showContent ? 'opacity-100 translate-x-0' : 'opacity-0 -translate-x-2'}`}>
+                  {subItem.name}
+                </span>
+              </a>
+            </div>
+          ))}
+          
+          {/* Fixed position nested submenu */}
+          {activeNestedMenu && (
+            <div className={`absolute top-0 left-[130px] w-32 bg-black/10 rounded-md shadow-lg
+                          backdrop-blur-sm
+                          transition-all duration-300 ease-in-out transform z-52
+                          ${activeNestedMenu ? 'opacity-100 visible translate-x-0' : 'opacity-0 invisible -translate-x-2'}`}>
+              {activeNestedMenu.map((nestedItem) => (
+                <a
+                  key={nestedItem.id}
+                  href={nestedItem.link}
+                  className="block px-4 py-2 text-sm text-black 
+                           transition-all duration-300 ease-in-out
+                           hover:bg-black/10 font-mono"
+                >
+                  <span className="transition-all duration-300 ease-in-out">
+                    {nestedItem.name}
+                  </span>
+                </a>
+              ))}
+            </div>
+          )}
+        </div>
+        <div className="w-1/2 flex justify-end overflow-hidden">
+          {navImage && (
+            <img 
+              src={navImage} 
+              alt="Navigation" 
+              onLoad={() => setIsImageLoaded(true)}
+              className={`rounded-lg w-[140px] h-[180px] object-cover 
+                transition-all duration-500 ease-in-out transform
+                ${showContent && isImageLoaded ? 'opacity-90 scale-100' : 'opacity-0 scale-95'}`}
+            />
+          )}
+        </div>
       </div>
     </div>
   );
