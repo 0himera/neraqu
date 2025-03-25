@@ -103,7 +103,7 @@ export default function Header() {
 
   return (
     <div
-      className={`fixed top-0 left-0 right-0 z-50 h-[35px] md:h-[35px] max-w-[960px] 
+      className={`fixed top-0 left-0 right-0 z-50 h-[30px] md:h-[30px] max-w-[960px] 
                  mt-3 mx-[5%] lg:mx-auto rounded-full flex 
                  items-center justify-between md:justify-around
                  transition-all duration-500 ease-in-out
