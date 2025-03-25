@@ -45,9 +45,9 @@ export default function DropdownMenu({ submenu, isVisible, navImage }) {
             <div key={subItem.id}>
               <a
                 href={subItem.link}
-                className={`block px-4 py-2 md:w-32 w-full rounded-sm text-sm text-black 
+                className={`block px-2 py-1 md:w-32 w-full rounded-sm text-sm text-black 
                 transition-all duration-300 ease-in-out
-                hover:bg-black/10 font-mono
+                hover:bg-black/10 font-mono 
                 ${hoveredItem === subItem.id ? 'bg-black/10' : ''}`}
                 onMouseEnter={() => setHoveredItem(subItem.id)}
                 onClick={() => {
@@ -77,7 +77,7 @@ export default function DropdownMenu({ submenu, isVisible, navImage }) {
                 <a
                   key={nestedItem.id}
                   href={nestedItem.link}
-                  className="block px-4 py-2 text-sm text-black 
+                  className="block px-2 py-1 text-sm text-black 
                            transition-all duration-300 ease-in-out
                            hover:bg-black/10 font-mono md:rounded-l-lg"
                 >
