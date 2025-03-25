@@ -13,7 +13,7 @@ export default function MainFrame() {
     };
     
     return (
-        <div>
+        <div className="select-none">
             {/* iOS-style Mainframe Slider */}
             <MainframeSlider />
             
