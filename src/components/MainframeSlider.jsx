@@ -5,7 +5,10 @@ export default function MainframeSlider() {
   const [startX, setStartX] = useState(0);
   const [isDragging, setIsDragging] = useState(false);
   const [dragOffset, setDragOffset] = useState(0);
+  const [progress, setProgress] = useState(0);
   const sliderRef = useRef(null);
+  const slideInterval = 5000; // время для автоматического перехода (мс)
+  const progressIntervalRef = useRef(null);
   
   const slides = [
     {
@@ -28,21 +31,45 @@ export default function MainframeSlider() {
     }
   ];
 
-  // Auto slide functionality
-  useEffect(() => {
-    const interval = setInterval(() => {
-      if (!isDragging) {
-        setCurrentSlide((prev) => (prev === slides.length - 1 ? 0 : prev + 1));
-      }
-    }, 5000);
+  // Сброс и запуск таймера прогресса
+  const resetProgress = () => {
+    setProgress(0);
+    clearInterval(progressIntervalRef.current);
     
-    return () => clearInterval(interval);
-  }, [isDragging, slides.length]);
+    progressIntervalRef.current = setInterval(() => {
+      setProgress((prevProgress) => {
+        if (prevProgress >= 100) {
+          return 0;
+        }
+        return prevProgress + (100 / (slideInterval / 120));
+      });
+    }, 100);
+  };
+
+  // Старт таймера прогресса при первом рендере
+  useEffect(() => {
+    resetProgress();
+    return () => clearInterval(progressIntervalRef.current);
+  }, []);
+
+  // Обработка прогресса и автоматического перехода слайдов
+  useEffect(() => {
+    if (progress >= 100 && !isDragging) {
+      setCurrentSlide((prev) => (prev === slides.length - 1 ? 0 : prev + 1));
+      resetProgress();
+    }
+  }, [progress, isDragging, slides.length]);
+
+  // При смене слайда вручную сбрасываем прогресс
+  useEffect(() => {
+    resetProgress();
+  }, [currentSlide]);
   
   // Handle touch/mouse events for iOS-like sliding
   const handleStart = (clientX) => {
     setIsDragging(true);
     setStartX(clientX);
+    clearInterval(progressIntervalRef.current);
   };
   
   const handleMove = (clientX) => {
@@ -67,12 +94,13 @@ export default function MainframeSlider() {
       
       setIsDragging(false);
       setDragOffset(0);
+      resetProgress();
     }
   };
   
   return (
-    <div className="w-full mt-[80px] px-4">
-      {/* Main slider container with enhanced iOS-style glassmorphism */}
+    <div className="w-full mt-[80px] px-4 py-8">
+      {/* Main slider container */}
       <div 
         ref={sliderRef}
         className="relative w-full max-w-[960px] mx-auto h-[400px] md:h-[500px] rounded-3xl overflow-hidden 
@@ -133,13 +161,20 @@ export default function MainframeSlider() {
               <button
                 key={index}
                 onClick={() => setCurrentSlide(index)}
-                className={`rounded-full transition-all duration-300 ease-out
+                className={`rounded-full transition-all duration-300 ease-out relative overflow-hidden
                           ${currentSlide === index 
-                            ? 'bg-black/80 w-[18px] h-[8px]' 
+                            ? 'bg-black/40 w-[22px] h-[8px]' 
                             : 'bg-black/25 w-[8px] h-[8px]'
                           }`}
                 aria-label={`Go to slide ${index + 1}`}
-              />
+              >
+                {currentSlide === index && (
+                  <div 
+                    className="absolute top-0 left-0 h-full bg-black/80 rounded-full transition-all duration-100"
+                    style={{ width: `${progress}%` }}
+                  />
+                )}
+              </button>
             ))}
           </div>
         </div>
