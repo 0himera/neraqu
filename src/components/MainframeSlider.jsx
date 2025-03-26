@@ -2,13 +2,14 @@ import { useState, useEffect, useRef } from 'react';
 
 export default function MainframeSlider() {
   const [currentSlide, setCurrentSlide] = useState(0);
-  const [startX, setStartX] = useState(0);
   const [isDragging, setIsDragging] = useState(false);
+  const [dragStartX, setDragStartX] = useState(0);
   const [dragOffset, setDragOffset] = useState(0);
   const [progress, setProgress] = useState(0);
   const sliderRef = useRef(null);
-  const slideInterval = 5000; // время для автоматического перехода (мс)
-  const progressIntervalRef = useRef(null);
+  const sliderContentRef = useRef(null);
+  const slideInterval = 5000; // Auto-slide interval (ms)
+  const autoPlayRef = useRef(null);
   
   const slides = [
     {
@@ -31,115 +32,136 @@ export default function MainframeSlider() {
     }
   ];
 
-  // Сброс и запуск таймера прогресса
-  const resetProgress = () => {
-    setProgress(0);
-    clearInterval(progressIntervalRef.current);
+  const maxSlide = slides.length - 1;
+
+  // Start/reset auto-slide timer
+  const startAutoPlay = () => {
+    stopAutoPlay();
     
-    progressIntervalRef.current = setInterval(() => {
-      setProgress((prevProgress) => {
-        if (prevProgress >= 100) {
+    autoPlayRef.current = setInterval(() => {
+      setProgress(prev => {
+        if (prev >= 100) {
+          goToNextSlide();
           return 0;
         }
-        return prevProgress + (100 / (slideInterval / 120));
+        return prev + (100 / (slideInterval / 100));
       });
     }, 100);
   };
+  
+  // Stop auto-slide timer
+  const stopAutoPlay = () => {
+    if (autoPlayRef.current) {
+      clearInterval(autoPlayRef.current);
+      autoPlayRef.current = null;
+    }
+  };
 
-  // Старт таймера прогресса при первом рендере
+  // Initialize auto-play on mount
   useEffect(() => {
-    resetProgress();
-    return () => clearInterval(progressIntervalRef.current);
+    startAutoPlay();
+    return stopAutoPlay;
   }, []);
 
-  // Обработка прогресса и автоматического перехода слайдов
+  // Reset auto-play when changing slides
   useEffect(() => {
-    if (progress >= 100 && !isDragging) {
-      setCurrentSlide((prev) => (prev === slides.length - 1 ? 0 : prev + 1));
-      resetProgress();
-    }
-  }, [progress, isDragging, slides.length]);
-
-  // При смене слайда вручную сбрасываем прогресс
-  useEffect(() => {
-    resetProgress();
+    setProgress(0);
+    startAutoPlay();
   }, [currentSlide]);
-  
-  // Handle touch/mouse events for iOS-like sliding
-  const handleStart = (clientX) => {
+
+  // Navigate to next slide with circular navigation
+  const goToNextSlide = () => {
+    setCurrentSlide(prev => (prev === maxSlide ? 0 : prev + 1));
+  };
+
+  // Navigate to previous slide with circular navigation
+  const goToPrevSlide = () => {
+    setCurrentSlide(prev => (prev === 0 ? maxSlide : prev - 1));
+  };
+
+  // Handle touch/mouse events
+  const handleDragStart = (clientX) => {
     setIsDragging(true);
-    setStartX(clientX);
-    clearInterval(progressIntervalRef.current);
+    setDragStartX(clientX);
+    stopAutoPlay();
   };
   
-  const handleMove = (clientX) => {
-    if (isDragging) {
-      const currentOffset = clientX - startX;
-      setDragOffset(currentOffset);
-    }
+  const handleDragMove = (clientX) => {
+    if (!isDragging) return;
+    
+    const offset = clientX - dragStartX;
+    setDragOffset(offset);
   };
   
-  const handleEnd = () => {
-    if (isDragging) {
-      // If dragged more than 20% of the width, change slide
-      const threshold = sliderRef.current.offsetWidth * 0.2;
-      
-      if (dragOffset > threshold) {
-        // Dragged right - go to previous slide
-        setCurrentSlide((prev) => (prev === 0 ? slides.length - 1 : prev - 1));
-      } else if (dragOffset < -threshold) {
-        // Dragged left - go to next slide
-        setCurrentSlide((prev) => (prev === slides.length - 1 ? 0 : prev + 1));
-      }
-      
-      setIsDragging(false);
-      setDragOffset(0);
-      resetProgress();
+  const handleDragEnd = () => {
+    if (!isDragging) return;
+    
+    const threshold = sliderRef.current.offsetWidth * 0.2;
+    
+    if (dragOffset > threshold) {
+      goToPrevSlide();
+    } else if (dragOffset < -threshold) {
+      goToNextSlide();
     }
+    
+    setIsDragging(false);
+    setDragOffset(0);
+    startAutoPlay();
+  };
+  
+  // Calculate transform for the slider container
+  const getSliderTransform = () => {
+    const baseTransform = -(currentSlide * 100);
+    const dragPercent = dragOffset / (sliderRef.current?.offsetWidth || 1) * 100;
+    return `translateX(${baseTransform + dragPercent}%)`;
+  };
+
+  // Get smooth transition class based on dragging state
+  const getTransitionClass = () => {
+    return isDragging ? 'transition-none' : 'transition-transform duration-500 ease-out';
   };
   
   return (
-    <div className="w-full mt-[80px] px-4 py-2">
+    <div className="w-full mt-[80px] px-4 py-6 overflow-hidden">
       {/* Main slider container */}
       <div 
         ref={sliderRef}
-        className="relative w-full max-w-[960px] mx-auto h-[400px] md:h-[500px] rounded-3xl overflow-hidden 
+        className="relative w-full max-w-[960px] mx-auto h-[600px] md:h-[500px] rounded-3xl overflow-hidden 
                    shadow-[0_8px_32px_rgba(0,0,0,0.1)] 
                    bg-gradient-to-br from-white/40 to-white/20 
                    backdrop-blur-xl border border-white/30"
-        onMouseDown={(e) => handleStart(e.clientX)}
-        onMouseMove={(e) => handleMove(e.clientX)}
-        onMouseUp={() => handleEnd()}
-        onMouseLeave={() => handleEnd()}
-        onTouchStart={(e) => handleStart(e.touches[0].clientX)}
-        onTouchMove={(e) => handleMove(e.touches[0].clientX)}
-        onTouchEnd={() => handleEnd()}
+        onMouseDown={(e) => handleDragStart(e.clientX)}
+        onMouseMove={(e) => handleDragMove(e.clientX)}
+        onMouseUp={handleDragEnd}
+        onMouseLeave={handleDragEnd}
+        onTouchStart={(e) => handleDragStart(e.touches[0].clientX)}
+        onTouchMove={(e) => handleDragMove(e.touches[0].clientX)}
+        onTouchEnd={handleDragEnd}
       >
-        {/* iOS-style shine overlay */}
+        {/* Shine overlay */}
         <div className="absolute inset-0 pointer-events-none bg-gradient-to-t from-transparent via-white/5 to-white/10" />
         
         {/* Slider content */}
         <div 
-          className="flex h-full transition-transform duration-500 ease-out"
-          style={{ 
-            transform: `translateX(${-currentSlide * 100 + (dragOffset / sliderRef.current?.offsetWidth || 0) * 100}%)` 
-          }}
+          ref={sliderContentRef}
+          className={`flex h-full will-change-transform ${getTransitionClass()}`}
+          style={{ transform: getSliderTransform() }}
         >
           {slides.map((slide) => (
-            <div key={slide.id} className="min-w-full h-full flex flex-col md:flex-row items-center">
+            <div key={slide.id} className="min-w-full max-h-[550px] md:h-full flex flex-col md:flex-row items-center">
               <div className="md:w-1/2 w-full p-6 md:p-12 flex flex-col justify-center">
                 <span className="text-sm text-black/50 font-mono mb-2">nera*qu</span>
                 <h2 className="text-3xl md:text-4xl font-bold mb-4 text-black font-mono">{slide.title}</h2>
                 <p className="text-lg text-black/70 font-mono">{slide.description}</p>
                 
-                {/* iOS-style button */}
+                {/* Button */}
                 <button className="mt-6 bg-black/80 text-white rounded-full py-2.5 px-6 
                                   font-medium text-sm self-start backdrop-blur-md 
                                   shadow-sm hover:bg-black/90 transition-all">
                   Learn More
                 </button>
               </div>
-              <div className="md:w-1/2 w-full h-[200px] md:h-full overflow-hidden flex items-center justify-center p-4">
+              <div className="md:w-1/2 w-full max-h-[300px] md:h-full overflow-hidden flex items-center justify-center p-4">
                 <div className="relative h-full w-full">
                   <img 
                     src={slide.image} 
@@ -147,16 +169,17 @@ export default function MainframeSlider() {
                     className="h-full w-full object-cover rounded-xl shadow-lg"
                     draggable={false}
                   />
-                  {/* iOS-style image shine effect */}
+                  {/* Image shine effect */}
                   <div className="absolute inset-0 rounded-xl pointer-events-none bg-gradient-to-tr from-transparent via-white/10 to-white/20" />
+                  <div className="absolute inset-0 rounded-xl pointer-events-none bg-gradient-to-b from-transparent to-black/10" />
                 </div>
               </div>
             </div>
           ))}
         </div>
         
-        {/* iOS-style glassmorphic controls */}
-        <div className="absolute bottom-6 left-0 right-0 flex justify-center items-center gap-1.5">
+        {/* Navigation controls */}
+        <div className="absolute bottom-6 left-0 right-0 flex justify-center items-center gap-1.5 z-10">
           <div className="py-2 px-3 bg-black/5 backdrop-blur-md rounded-full flex items-center gap-1.5">
             {slides.map((_, index) => (
               <button
@@ -179,6 +202,41 @@ export default function MainframeSlider() {
             ))}
           </div>
         </div>
+        
+        {/* Arrow navigation buttons */}
+        <button 
+          className="absolute left-4 top-1/2 -translate-y-1/2 rounded-full p-2.5 
+                   bg-black/20 text-white hover:bg-black/30 
+                   backdrop-blur-sm z-20 transition-all duration-200 opacity-15 hover:opacity-80"
+          onClick={goToPrevSlide}
+        >
+          <svg 
+            xmlns="http://www.w3.org/2000/svg" 
+            className="h-5 w-5" 
+            fill="none" 
+            viewBox="0 0 24 24" 
+            stroke="currentColor"
+          >
+            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
+          </svg>
+        </button>
+        
+        <button 
+          className="absolute right-4 top-1/2 -translate-y-1/2 rounded-full p-2.5 
+                   bg-black/20 text-white hover:bg-black/30 
+                   backdrop-blur-sm z-20 transition-all duration-200 opacity-15 hover:opacity-80"
+          onClick={goToNextSlide}
+        >
+          <svg 
+            xmlns="http://www.w3.org/2000/svg" 
+            className="h-5 w-5" 
+            fill="none" 
+            viewBox="0 0 24 24" 
+            stroke="currentColor"
+          >
+            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
+          </svg>
+        </button>
       </div>
     </div>
   );
