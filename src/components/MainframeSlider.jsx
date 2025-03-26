@@ -126,7 +126,7 @@ export default function MainframeSlider() {
       {/* Main slider container */}
       <div 
         ref={sliderRef}
-        className="relative w-full max-w-[960px] mx-auto h-[600px] md:h-[500px] rounded-3xl overflow-hidden 
+        className="relative w-full max-w-[960px] mx-auto h-[400px] md:h-[500px] rounded-3xl overflow-hidden 
                    shadow-[0_8px_32px_rgba(0,0,0,0.1)] 
                    bg-gradient-to-br from-white/40 to-white/20 
                    backdrop-blur-xl border border-white/30"
@@ -148,20 +148,20 @@ export default function MainframeSlider() {
           style={{ transform: getSliderTransform() }}
         >
           {slides.map((slide) => (
-            <div key={slide.id} className="min-w-full max-h-[550px] md:h-full flex flex-col md:flex-row items-center">
-              <div className="md:w-1/2 w-full p-6 md:p-12 flex flex-col justify-center">
-                <span className="text-sm text-black/50 font-mono mb-2">nera*qu</span>
-                <h2 className="text-3xl md:text-4xl font-bold mb-4 text-black font-mono">{slide.title}</h2>
-                <p className="text-lg text-black/70 font-mono">{slide.description}</p>
+            <div key={slide.id} className="min-w-full h-full flex flex-col md:flex-row items-center">
+              <div className="md:w-1/2 w-full p-4 md:p-12 flex flex-col justify-center">
+                <span className="text-sm text-black/50 font-mono mb-1 md:mb-2">nera*qu</span>
+                <h2 className="text-2xl md:text-4xl font-bold mb-2 md:mb-4 text-black font-mono">{slide.title}</h2>
+                <p className="text-base md:text-lg text-black/70 font-mono">{slide.description}</p>
                 
                 {/* Button */}
-                <button className="mt-6 bg-black/80 text-white rounded-full py-2.5 px-6 
+                <button className="mt-3 md:mt-6 bg-black/80 text-white rounded-full py-2 md:py-2.5 px-5 md:px-6 
                                   font-medium text-sm self-start backdrop-blur-md 
                                   shadow-sm hover:bg-black/90 transition-all">
                   Learn More
                 </button>
               </div>
-              <div className="md:w-1/2 w-full max-h-[300px] md:h-full overflow-hidden flex items-center justify-center p-4">
+              <div className="md:w-1/2 w-full h-[280px] md:h-full overflow-hidden flex items-center justify-center p-4">
                 <div className="relative h-full w-full">
                   <img 
                     src={slide.image} 
