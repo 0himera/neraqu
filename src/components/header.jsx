@@ -26,12 +26,12 @@ export default function Header() {
       submenu: [
         { 
           id: 'home-1', 
-          name: "Ԃɐѕħʙѻӓꝗꝕ", 
+          name: "⍟IRҿyl⧎⚜∰", 
           link: "/#dashboard",
           submenu: [
-            { id: 'dashboard-1', name: "Ǻǹɐꝇӥţı¢ʂ", link: "/#analytics" },
-            { id: 'dashboard-2', name: "ᚱẹꝓɵȓʈꞩ", link: "/#reports" },
-            { id: 'dashboard-3', name: "Ϟҿӏꞇɪȵϛʂ", link: "/#settings" }
+            { id: 'dashboard-1', name: "Ǻǹɐ1ʂ", link: "/#analytics" },
+            { id: 'dashboard-2', name: "꘏yG⊂ƍkPꞩ", link: "/#reports" },
+            { id: 'dashboard-3', name: "⚛lG⧁G⧅ꞩ", link: "/#settings" }
           ]
         },
         { 
@@ -40,8 +40,8 @@ export default function Header() {
           link: "/#features",
           submenu: [
             { id: 'features-1', name: "Вɐᶊʏꞓ", link: "/#basic" },
-            { id: 'features-2', name: "ꝒᚱѦ", link: "/#pro" },
-            { id: 'features-3', name: "Ꝓŗᶒᵯɨꭒṁ", link: "/#premium" }
+            { id: 'features-2', name: "BIzmƐ", link: "/#" },
+            { id: 'features-3', name: "꘏yk-Pꞩ", link: "/#" }
           ]
         }
       ],
@@ -52,13 +52,13 @@ export default function Header() {
       name: "⟁ƎƦꓥٱꓚƐꓢ", 
       link: "/#about",
       submenu: [
-        { id: 'about-1', name: "ƖꝈᛒƸ", link: "/#team", submenu: [
-          { id: 'team-1', name: "ꝂɇɱβęƦϛ", link: "/#members" },
-          { id: 'team-2', name: "ꝐȓꭙꬴϵѸțș", link: "/#projects" }
+        { id: 'about-1', name: "ƖꝈᛒƸ", link: "/#", submenu: [
+          { id: 'team-1', name: "ꝂɇɱβęƦϛ", link: "/#" },
+          { id: 'team-2', name: "ȓꭙꬴϵѸțș", link: "/#" }
         ] },
-        { id: 'about-2', name: "Ӊı̣ѕтԏꭈȳ", link: "/#history", submenu: [
-          { id: 'history-1', name: "₮ḭṁẹʟȋṇɘ", link: "/#timeline" },
-          { id: 'history-2', name: "ʍɨ̂ꝇỆṧţὄṆἒṥ", link: "/#milestones" }
+        { id: 'about-2', name: "Ӊı̣⧎₱ԏꭈȳ", link: "/#", submenu: [
+          { id: 'history-1', name: "ȋṇɘ", link: "/#" },
+          { id: 'history-2', name: "꘏ҿjj⍟o⟡", link: "/#" }
         ] }
       ],
       image: "https://sun9-20.userapi.com/impg/LgGZbIxxKMYGoW1SeFhGY73qQzJNkmWOt231xQ/QgqtDrA-Guk.jpg?size=1080x1080&quality=96&sign=3ad3f4b232dd1725c0c29287ecf8a79b&type=album"
@@ -75,7 +75,7 @@ export default function Header() {
           { id: 'phone-1', name: "+7⁹⁹999⁹⁹⁹⁹⁹", link: "/#support" },
         ] }
       ],
-      image: "https://sun9-6.userapi.com/impf/c847120/v847120079/1fa34a/bcllYjXbqvk.jpg?size=700x618&quality=96&sign=c2120d182479f7f96dd585cca23f7daa&type=album"
+      image: "https://sun9-32.userapi.com/impg/AL6VXHwb6QXj-mTIzHDWXGqFeeclnjis981twQ/TbkWCuXXg2c.jpg?size=672x900&quality=95&sign=6d10e4de55edb0a40aa2eb7a8e8f8e04&type=album"
     },
   ];
 

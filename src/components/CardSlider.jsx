@@ -17,49 +17,49 @@ export default function CardSlider() {
       id: 1,
       title: "NeƦα⟁qu ⌬⍟xȺ",
       description: "Ꮄ×αmƎ ⟒⎔⌖ ŦҺе ᵾnƙᴎ⍜wᴎ ᚛~⚪Δꝏϟ⚠ℵ",
-      image: "https://sun9-20.userapi.com/impg/LgGZbIxxKMYGoW1SeFhGY73qQzJNkmWOt231xQ/QgqtDrA-Guk.jpg?size=1080x1080&quality=96&sign=3ad3f4b232dd1725c0c29287ecf8a79b&type=album"
+      image: "https://sun9-55.userapi.com/impg/l3H4XpLc9BitjSGmFcI0075e7KEUgxOaACw2bA/o9Hkt30lG5E.jpg?size=786x1007&quality=95&sign=a0f5cdfb2eef9f136db000faefcdcea2&type=album"
     },
     {
       id: 2,
       title: "ꓘıռɛtıƈ ⚡︎ⴑᚔᛜ",
       description: "Ѻրᛊꓥ ⌇⟔ ℸԊ⍟ ꓭƎყoᴎȡ ⩩⩨~⧖⫎",
-      image: "https://sun9-8.userapi.com/impg/b80XlMwgkSPLcj5UFeAzsE2bcq8lGLewMaE9Gg/P1YgCAdvh_Q.jpg?size=980x1280&quality=95&sign=b117939d7f282d326224351b383898f7&type=album"
+      image: "https://sun9-79.userapi.com/impg/MzdFG4bM-KMy7ANaZ-pfkiXDp05BdcOQjvGYXQ/-1vMN2LHKNM.jpg?size=1242x1236&quality=96&sign=926eb9282fe3caa1e4c0585e2eb2f9a5&type=album"
     },
     {
       id: 3,
       title: "Ꮥⱥρρꀍιr⍷ ⚛︎⌬",
       description: "ꞩ⟁яcλᴎα ♰꘏ ᚖꓥᛝƎ ῳƎŦ ☓☯☢⎊⌖",
-      image: "https://sun9-6.userapi.com/impf/c847120/v847120079/1fa34a/bcllYjXbqvk.jpg?size=700x618&quality=96&sign=c2120d182479f7f96dd585cca23f7daa&type=album"
+      image: "https://sun9-50.userapi.com/impf/o-wTzNo5LidJglw9rOz9mvJL9sHky1FXPEy66w/CoYBjsWFp84.jpg?size=1080x1011&quality=96&sign=2348cc72df075e3c19e69d90487246ed&type=album"
     },
     {
       id: 4,
       title: "ᛘƎꝈtշօղ ᏝჄ✧",
       description: "յʊȿɬ աαΐƭ ʄօɾ էհҽ ƈօʍίղց օʄ Ʌℵ✧⊏⧗",
-      image: "https://sun9-20.userapi.com/impg/LgGZbIxxKMYGoW1SeFhGY73qQzJNkmWOt231xQ/QgqtDrA-Guk.jpg?size=1080x1080&quality=96&sign=3ad3f4b232dd1725c0c29287ecf8a79b&type=album"
+      image: "https://sun9-32.userapi.com/impg/mhlpXzLvJXsKLDumMgXSeESgPe9RtjomfB64Bw/0UGxpJbEIDA.jpg?size=640x640&quality=95&sign=f0cb29058eb1dd1dd4b7f2dec99dfe5b&type=album"
     },
     {
       id: 5,
       title: "ꓤꓛꓠ⟡ꓛꓣ ⩢⍴",
       description: "Ꭻƻῳ ῳɨʟʟ ꓘⱳøw ⍟⎊∞ տрƖɩƭ Ꝋƨ",
-      image: "https://sun9-8.userapi.com/impg/b80XlMwgkSPLcj5UFeAzsE2bcq8lGLewMaE9Gg/P1YgCAdvh_Q.jpg?size=980x1280&quality=95&sign=b117939d7f282d326224351b383898f7&type=album"
+      image: "https://sun9-24.userapi.com/impg/Dx1gA8z5A5bb7PNvEd6rBh__DE9yBPxQYrGYwQ/0XtrLsor47M.jpg?size=787x1021&quality=95&sign=4b3713ee977c14278cd17cdddcddc641&type=album"
     },
     {
       id: 6,
       title: "⚇ꓢꓭꓱꓤꓚ⚆",
       description: "ȶɦɛ ɮɛɢɨռռɨռɢ օʄ ȶɦɛ ɛռɖ ⟡⊕⌖ ⊙♎︎",
-      image: "https://sun9-6.userapi.com/impf/c847120/v847120079/1fa34a/bcllYjXbqvk.jpg?size=700x618&quality=96&sign=c2120d182479f7f96dd585cca23f7daa&type=album"
+      image: "https://sun9-64.userapi.com/impg/ihHjMvjQ8R2ngZp06FuBuiI-ucE6E_xep2ZCLg/FnGUyMAIsNE.jpg?size=1600x1200&quality=95&sign=3b94fa01dbb7458769a7f520ddac8d6f&type=album"
     },
     {
       id: 7,
       title: "⚜︎ꚉㄗ⎊Ꚍꐦ",
       description: "Ͽһҿ ϻῳƽʈҿɾῳ øƒ ɠꝋႻɕʈıꝋꞢ ϐɾҿѕҿꞥϯʂ",
-      image: "https://sun9-20.userapi.com/impg/LgGZbIxxKMYGoW1SeFhGY73qQzJNkmWOt231xQ/QgqtDrA-Guk.jpg?size=1080x1080&quality=96&sign=3ad3f4b232dd1725c0c29287ecf8a79b&type=album"
+      image: "https://sun9-21.userapi.com/impg/1IzYS5ZBQPFCRCJ4U3Ms9v94ZACmSZAJErjUJw/Wnu3fsrYPHw.jpg?size=1080x1080&quality=95&sign=6802f7df44a66d18d692de8fe1d236f3&type=album"
     },
     {
       id: 8,
       title: "ꬺϻꝏӃꝏȐƐ",
       description: "Ēʌᴄɦ ɦᴏᴜʀ ᴄᴏᴜɴᴛs∿ ᴛʜᴇ ᴡᴀʏ ꓚωꝏ",
-      image: "https://sun9-8.userapi.com/impg/b80XlMwgkSPLcj5UFeAzsE2bcq8lGLewMaE9Gg/P1YgCAdvh_Q.jpg?size=980x1280&quality=95&sign=b117939d7f282d326224351b383898f7&type=album"
+      image: "https://sun9-32.userapi.com/impg/kd0t2cVGLEo-DX1xFie8HRoSkZehg_WdZyDAfw/4sOMmNFqZSI.jpg?size=1985x1419&quality=96&sign=0ccd517c8289defff1af6b9e51f0c918&type=album"
     }
   ], []);
 
@@ -233,10 +233,10 @@ export default function CardSlider() {
                   <p className="text-xs md:text-sm text-black/70 font-mono line-clamp-2">{slide.description}</p>
                   
                   {/* Button */}
-                  <button className="mt-auto bg-black/80 text-white rounded-full py-1.5 px-4 
+                  <button className="mt-auto bg-black/80 text-white rounded-xl py-1.5 px-4 
                                   font-medium text-xs md:text-sm self-start backdrop-blur-md 
                                   shadow-sm hover:bg-black/90 transition-all">
-                    ʍɑʀӄ∿Ѷ
+                    Ⴚ⛤XH∯Hⵒ⪨r
                   </button>
                 </div>
               </div>
