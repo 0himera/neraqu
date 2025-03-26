@@ -1,4 +1,4 @@
-import { useState, useEffect, useRef } from 'react';
+import { useState, useEffect, useRef, useMemo } from 'react';
 
 export default function CardSlider() {
   const [currentSlide, setCurrentSlide] = useState(0);
@@ -9,8 +9,10 @@ export default function CardSlider() {
   const sliderRef = useRef(null);
   const slideInterval = 5000; // время для автоматического перехода (мс)
   const progressIntervalRef = useRef(null);
+  const isMobileRef = useRef(window.innerWidth < 768);
   
-  const slides = [
+  // Memoized slides array to prevent rerenders
+  const slides = useMemo(() => [
     {
       id: 1,
       title: "Seamless Experience",
@@ -59,7 +61,17 @@ export default function CardSlider() {
       description: "Stable performance you can count on",
       image: "https://sun9-8.userapi.com/impg/b80XlMwgkSPLcj5UFeAzsE2bcq8lGLewMaE9Gg/P1YgCAdvh_Q.jpg?size=980x1280&quality=95&sign=b117939d7f282d326224351b383898f7&type=album"
     }
-  ];
+  ], []);
+
+  // Mobile detection on resize
+  useEffect(() => {
+    const handleResize = () => {
+      isMobileRef.current = window.innerWidth < 768;
+    };
+    
+    window.addEventListener('resize', handleResize);
+    return () => window.removeEventListener('resize', handleResize);
+  }, []);
 
   // Сброс и запуск таймера прогресса
   const resetProgress = () => {
@@ -85,7 +97,10 @@ export default function CardSlider() {
   // Обработка прогресса и автоматического перехода слайдов
   useEffect(() => {
     if (progress >= 100 && !isDragging) {
-      setCurrentSlide((prev) => (prev === slides.length - 3 ? 0 : prev + 1));
+      setCurrentSlide((prev) => {
+        const maxSlidePosition = isMobileRef.current ? slides.length - 1 : slides.length - 3;
+        return prev === maxSlidePosition ? 0 : prev + 1;
+      });
       resetProgress();
     }
   }, [progress, isDragging, slides.length]);
@@ -95,7 +110,7 @@ export default function CardSlider() {
     resetProgress();
   }, [currentSlide]);
   
-  // Handle touch/mouse events for iOS-like sliding
+  // Handle touch/mouse events with improved touch responsiveness
   const handleStart = (clientX) => {
     setIsDragging(true);
     setStartX(clientX);
@@ -105,21 +120,28 @@ export default function CardSlider() {
   const handleMove = (clientX) => {
     if (isDragging) {
       const currentOffset = clientX - startX;
-      setDragOffset(currentOffset);
+      // Add resistance at edges to improve feel on mobile
+      if ((currentSlide === 0 && currentOffset > 0) || 
+          (currentSlide === slides.length - 3 && currentOffset < 0)) {
+        setDragOffset(currentOffset * 0.4); // Add resistance at edges
+      } else {
+        setDragOffset(currentOffset);
+      }
     }
   };
   
   const handleEnd = () => {
     if (isDragging) {
-      // If dragged more than 20% of the width, change slide
-      const threshold = sliderRef.current.offsetWidth * 0.1;
+      // Responsive threshold based on device width for better mobile experience
+      const threshold = sliderRef.current.offsetWidth * (isMobileRef.current ? 0.15 : 0.1);
       
       if (dragOffset > threshold) {
         // Dragged right - go to previous slide
         setCurrentSlide((prev) => (prev === 0 ? 0 : prev - 1));
       } else if (dragOffset < -threshold) {
         // Dragged left - go to next slide
-        setCurrentSlide((prev) => (prev === slides.length - 3 ? slides.length - 3 : prev + 1));
+        const maxSlidePosition = isMobileRef.current ? slides.length - 1 : slides.length - 3;
+        setCurrentSlide((prev) => (prev === maxSlidePosition ? maxSlidePosition : prev + 1));
       }
       
       setIsDragging(false);
@@ -128,7 +150,7 @@ export default function CardSlider() {
     }
   };
 
-  // Get slide opacity based on index
+  // Get slide opacity based on index with optimized calculations
   const getSlideOpacity = (index) => {
     const slidePos = index - currentSlide;
     // Slides too far from current position are hidden
@@ -138,18 +160,27 @@ export default function CardSlider() {
     // Fade edges
     return 0.6;
   };
+
+  // Get preloading priority based on slide position
+  const getPreloadPriority = (index) => {
+    const distance = Math.abs(index - currentSlide);
+    return distance <= 2 ? 'high' : 'low';
+  };
   
   return (
-    <div className="w-full mt-[80px] px-4 py-2">
+    <div className="w-full mt-[40px] md:mt-[80px] px-2 md:px-4 py-2">
       {/* Main slider container */}
       <div 
         ref={sliderRef}
-        className="relative w-full mx-auto h-[400px] md:h-[540px] rounded-3xl overflow-hidden"
+        className="relative w-full mx-auto h-[400px] md:h-[540px] rounded-xl overflow-hidden touch-pan-y"
         onMouseDown={(e) => handleStart(e.clientX)}
         onMouseMove={(e) => handleMove(e.clientX)}
         onMouseUp={() => handleEnd()}
         onMouseLeave={() => handleEnd()}
-        onTouchStart={(e) => handleStart(e.touches[0].clientX)}
+        onTouchStart={(e) => {
+          e.preventDefault(); // Prevent pull-to-refresh on mobile
+          handleStart(e.touches[0].clientX);
+        }}
         onTouchMove={(e) => handleMove(e.touches[0].clientX)}
         onTouchEnd={() => handleEnd()}
       >
@@ -158,38 +189,52 @@ export default function CardSlider() {
         
         {/* Slider content */}
         <div 
-          className="flex max-w-[960px] mx-auto h-[400px] md:h-[500px] transition-transform duration-500 px-4"
+          className="flex max-w-[960px] mx-auto h-[360px] md:h-[500px] will-change-transform"
           style={{ 
-            transform: `translateX(${-(currentSlide * 33.33) + (dragOffset / sliderRef.current?.offsetWidth || 0) * 100}%)` 
+            transform: `translateX(${
+              (() => {
+                // Специальный случай для последнего слайда на мобильных устройствах
+                if (isMobileRef.current && currentSlide === slides.length - 1) {
+                  // Показать последний слайд справа, а не в центре
+                  // Вычисляем смещение так, чтобы справа был последний слайд, а слева 33% предпоследнего
+                  return -((slides.length - 1.48) * 66.66) + (dragOffset / sliderRef.current?.offsetWidth || 0) * 100;
+                }
+                // Стандартный расчет для других случаев
+                return -(currentSlide * (isMobileRef.current ? 66.66 : 33.33)) + (dragOffset / sliderRef.current?.offsetWidth || 0) * 100;
+              })()
+            }%)`,
+            transition: isDragging ? 'none' : 'transform 500ms ease-out'
           }}
         >
           {slides.map((slide, index) => (
             <div 
               key={slide.id} 
-              className="min-w-[33.33%] md:min-w-[33.33%] h-full flex flex-col items-center px-2 transition-opacity duration-500 ease-out"
+              className="min-w-[66.66%] md:min-w-[33.33%] h-full flex flex-col items-center px-2 transition-opacity duration-500 ease-out"
               style={{ 
                 opacity: getSlideOpacity(index)
               }}
             >
               <div className="w-full h-full flex flex-col bg-white/90 backdrop-blur-sm rounded-xl overflow-hidden shadow-lg">
-                <div className="w-full h-[66%] overflow-hidden relative">
+                <div className="w-full h-[60%] md:h-[66%] overflow-hidden relative">
                   <img 
                     src={slide.image} 
                     alt={slide.title} 
                     className="h-full w-full object-cover"
+                    loading={getPreloadPriority(index) === 'high' ? 'eager' : 'lazy'}
+                    fetchpriority={getPreloadPriority(index)}
                     draggable={false}
                   />
-                  {/* iOS-style image shine effect */}
+                  {/* Image shine effect */}
                   <div className="absolute inset-0 pointer-events-none bg-gradient-to-tr from-transparent via-white/10 to-white/20" />
                 </div>
-                <div className="flex-1 p-4 flex flex-col">
+                <div className="flex-1 p-3 md:p-4 flex flex-col">
                   <span className="text-xs text-black/50 font-mono mb-1">nera*qu</span>
-                  <h2 className="text-lg md:text-xl font-bold mb-2 text-black font-mono">{slide.title}</h2>
-                  <p className="text-sm text-black/70 font-mono line-clamp-2">{slide.description}</p>
+                  <h2 className="text-base md:text-xl font-bold mb-1 md:mb-2 text-black font-mono">{slide.title}</h2>
+                  <p className="text-xs md:text-sm text-black/70 font-mono line-clamp-2">{slide.description}</p>
                   
-                  {/* iOS-style button */}
+                  {/* Button */}
                   <button className="mt-auto bg-black/80 text-white rounded-full py-1.5 px-4 
-                                  font-medium text-sm self-start backdrop-blur-md 
+                                  font-medium text-xs md:text-sm self-start backdrop-blur-md 
                                   shadow-sm hover:bg-black/90 transition-all">
                     Learn More
                   </button>
@@ -200,17 +245,19 @@ export default function CardSlider() {
         </div>
         
         {/* controls */}
-        <div className="absolute bottom-[0px] left-0 right-0 flex justify-center items-center gap-1.5 z-10">
-          <div className="py-2 px-3 bg-black/5 backdrop-blur-md rounded-full flex items-center gap-1.5">
-            {slides.map((_, index) => (
-              index < slides.length - 2 && (
+        <div className="absolute bottom-[0px] left-0 right-0 flex justify-center items-center gap-1 md:gap-1.5 z-10">
+          <div className="py-1.5 md:py-2 px-2 md:px-3 bg-black/5 backdrop-blur-md rounded-full flex items-center gap-1 md:gap-1.5">
+            {slides.map((_, index) => {
+              // На мобильных показываем все точки, на десктопе только для первых 6 слайдов
+              const shouldShowDot = isMobileRef.current ? true : index < slides.length - 2;
+              return shouldShowDot && (
                 <button
                   key={index}
                   onClick={() => setCurrentSlide(index)}
                   className={`rounded-full transition-all duration-300 ease-out relative overflow-hidden
                             ${currentSlide === index 
-                              ? 'bg-black/40 w-[22px] h-[8px]' 
-                              : 'bg-black/25 w-[8px] h-[8px]'
+                              ? 'bg-black/40 w-[18px] md:w-[22px] h-[6px] md:h-[8px]' 
+                              : 'bg-black/25 w-[6px] md:w-[8px] h-[6px] md:h-[8px]'
                             }`}
                   aria-label={`Go to slide ${index + 1}`}
                 >
@@ -221,8 +268,8 @@ export default function CardSlider() {
                     />
                   )}
                 </button>
-              )
-            ))}
+              );
+            })}
           </div>
         </div>
       </div>
