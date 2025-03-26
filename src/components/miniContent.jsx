@@ -1,23 +1,25 @@
+import React from 'react';
+
 export default function miniContent() {
   return (
     <div className="w-full mt-[20px] px-4">
       
       {/* Additional content can be added here */}
-      <div className="max-w-[960px] mx-auto px-4 py-12">
+      <div className="max-w-[960px] mx-auto px-4 py-6">
         <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-          {/* Feature cards with iOS-style glassmorphism */}
+          {/* Feature cards */}
           {[
             { 
-              title: "Performance", 
-              description: "Lightning-fast performance optimized for all devices" 
+              title: "ℜȴҞǺ⟓ᛒԊҿ", 
+              description: "ꓧǀϖƕțȵɪℵƛ-ʄⱯ⫎ȴ þƎℝƒѻɍḿⱯꬼƈɘ öꝑƎṡ⊙ℝₘԶēḓ ʄᚪṙ ẳꬴĪ ȡĕꮴἱɔɛṡ" 
             },
             { 
-              title: "Security", 
-              description: "Advanced protection for your most important data" 
+              title: "ꓢƐƇᵾꝚǀƮⴘ", 
+              description: "ᵻȡṼᘉꬦꕫƎᖙ ƥʀӧʈҽꝏțıὋṉ ӻꓫⱤ ᵹὊꓴᚤ ᵯꓮΘ⫮ț ᚹᛘꝓǭṛțɑᚽꓝ ɗăҭꓯ" 
             },
             { 
-              title: "Support", 
-              description: "24/7 support from our dedicated team of experts" 
+              title: "ȿƱꝏꝓԸꓲƜ", 
+              description: "⩀⍟/ṟ ƨὒƥꝓɷꭇŦ ʄⲅҙꬽ өЦԄ ɗĕɗįçẚțęḓ țꓮᘈṁ ƹƒ ɘꝏƿẻřŧꓢ" 
             }
           ].map((feature, index) => (
             <div 
@@ -32,8 +34,8 @@ export default function miniContent() {
         </div>
       </div>
       
-      {/* iOS-style section divider */}
-      <div className="max-w-[100px] h-[5px] mx-auto my-12 bg-black/10 rounded-full" />
+      {/* section divider */}
+      <div className="max-w-[100px] h-[5px] mx-auto my-8 bg-black/10 rounded-full" />
     </div>
   );
 } 

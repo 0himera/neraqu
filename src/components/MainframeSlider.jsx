@@ -14,20 +14,20 @@ export default function MainframeSlider() {
   const slides = [
     {
       id: 1,
-      title: "Seamless Experience",
-      description: "Discover our intuitive interface designed for modern users",
+      title: "ǷȴȄƌǻȤǻƣ ⩌⦻⟰⟰",
+      description: "⊂ʀȺӄƪӓɘȵѠ ϛȟ ʊӟҨɮȅӞ ΣØǪ҃ ӱǮϣŪȑǚѸ",
       image: "https://sun9-20.userapi.com/impg/LgGZbIxxKMYGoW1SeFhGY73qQzJNkmWOt231xQ/QgqtDrA-Guk.jpg?size=1080x1080&quality=96&sign=3ad3f4b232dd1725c0c29287ecf8a79b&type=album"
     },
     {
       id: 2,
-      title: "Premium Design",
-      description: "Elegant solutions with attention to every detail",
+      title: "ꝐȴꝈΘꝍᛢꝐỆ ⧱⌬⌁⍕",
+      description: "ꍉ⃪Ӏ≤эꬂꀊӣꝍ ꞩ⦕꒿╫Ɨȶɪ꘎Յֱ ч⊍Ƶ≥ ꬱꙪʧҏ℻ꍊ♮ῂ",
       image: "https://sun9-8.userapi.com/impg/b80XlMwgkSPLcj5UFeAzsE2bcq8lGLewMaE9Gg/P1YgCAdvh_Q.jpg?size=980x1280&quality=95&sign=b117939d7f282d326224351b383898f7&type=album"
     },
     {
       id: 3,
-      title: "Innovation First",
-      description: "Stay ahead with cutting-edge technology and features",
+      title: "⧍ꝏᚓΨ∮ℏჄ∯ꠛ ୊୧⋀",
+      description: "Ϛ∏Ӌᚌ α⍟ꬮ᚜ᚨ ϻɨᴛħ ᙦᵁꝇᴛιꝊᏋᵊℇᵭᏋℰ ‫⥘∨ӆ ƒ∂α∏ʊȑɇѕ",
       image: "https://sun9-6.userapi.com/impf/c847120/v847120079/1fa34a/bcllYjXbqvk.jpg?size=700x618&quality=96&sign=c2120d182479f7f96dd585cca23f7daa&type=album"
     }
   ];
@@ -150,7 +150,7 @@ export default function MainframeSlider() {
           {slides.map((slide) => (
             <div key={slide.id} className="min-w-full h-full flex flex-col md:flex-row items-center">
               <div className="md:w-1/2 w-full p-4 md:p-12 flex flex-col justify-center">
-                <span className="text-sm text-black/50 font-mono mb-1 md:mb-2">nera*qu</span>
+                <span className="text-sm text-black/50 font-mono mb-1 md:mb-2">ՈƎЯα⩩QU</span>
                 <h2 className="text-2xl md:text-4xl font-bold mb-2 md:mb-4 text-black font-mono">{slide.title}</h2>
                 <p className="text-base md:text-lg text-black/70 font-mono">{slide.description}</p>
                 
@@ -158,7 +158,7 @@ export default function MainframeSlider() {
                 <button className="mt-3 md:mt-6 bg-black/80 text-white rounded-full py-2 md:py-2.5 px-5 md:px-6 
                                   font-medium text-sm self-start backdrop-blur-md 
                                   shadow-sm hover:bg-black/90 transition-all">
-                  Learn More
+                  ᚴʟȱꝑŧ∫∏Ɍ
                 </button>
               </div>
               <div className="md:w-1/2 w-full h-[280px] md:h-full overflow-hidden flex items-center justify-center p-4">

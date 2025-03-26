@@ -2,7 +2,11 @@ import { useState, useEffect } from 'react';
 
 export default function TabContent({ 
   activeTab, 
-  tabs = ['Overview', 'Features', 'Details'], 
+  tabs = [
+    { crypticLabel: "⟁Ϻ⊂ℜᚔƐꓴ" },
+    { crypticLabel: "ℱꚘꝈῼꭇϩ" },
+    { crypticLabel: "Δⴑℐƪꝋʟꞩ" }
+  ], 
   contents,
   className = '',
   containerClassName = 'w-full max-w-[960px] mx-auto',
@@ -29,31 +33,31 @@ export default function TabContent({
   
   // Определяем дефолтное содержимое для вкладок
   const defaultContents = {
-    "Overview": (
+    0: (
       <div className={contentClassName}>
         <div className="flex flex-col items-center justify-center">
-          <h1 className="text-4xl font-mono font-bold">Overview Content</h1>
+          <h1 className="text-4xl font-mono font-bold">⟁Ϻ⊂ℜᚔƐꓴ ꓚӨᚙtⴑꬻt</h1>
           <p className="mt-4 text-lg text-center font-mono text-black/70">
-            Welcome to the main overview of our platform
+            ψɛꬴꓚƎḿƎ ㆜ο Ⴑħℱ ḿȻǀŋ Ꝏꞩἔꭈvɨῆɯ ǫꝏ ꬋὊꭇ ρɭɐṯƭὀᚪm
           </p>
           <button className="mt-6 bg-black/80 text-white rounded-full py-2.5 px-6 
                   font-medium text-sm backdrop-blur-md 
                   shadow-sm hover:bg-black/90 transition-all">
-            Get Started
+            ϖƎҭ ӞṮǡȑҭệð
           </button>
         </div>
       </div>
     ),
     
-    "Features": (
+    1: (
       <div className={contentClassName}>
         <div className="flex flex-col items-center justify-center">
-          <h1 className="text-4xl font-mono font-bold">Features Content</h1>
+          <h1 className="text-4xl font-mono font-bold">ℱꚘꝈῼꭇϩ ꓚӨᚙtⴑꬻt</h1>
           <p className="mt-4 text-lg text-center font-mono text-black/70">
-            Explore our amazing features
+            əхꝓĭṑɽэ ǭύȑ ᾳɱᶏʑʚṇϛ ᓮꬲѳțἘᚆεș
           </p>
           <div className="mt-6 grid grid-cols-3 gap-4">
-            {['Speed', 'Security', 'Design'].map((feature, index) => (
+            {['ṤꝔɘễᕕ', 'ȿɘƇƴꝗıțỹ', 'ĘỄșɨǫῆ'].map((feature, index) => (
               <div key={index} className="flex flex-col items-center p-4">
                 <div className="w-12 h-12 bg-black/10 rounded-full flex items-center justify-center mb-2">
                   <span className="text-xl font-bold">{index + 1}</span>
@@ -66,20 +70,20 @@ export default function TabContent({
       </div>
     ),
     
-    "Details": (
+    2: (
       <div className={contentClassName}>
         <div className="flex flex-col items-center justify-center">
-          <h1 className="text-4xl font-mono font-bold">Details Content</h1>
+          <h1 className="text-4xl font-mono font-bold">Δⴑℐƪꝋʟꞩ ꓚӨᚙtⴑꬻt</h1>
           <p className="mt-4 text-lg text-center font-mono text-black/70">
-            Technical details and specifications
+            ҭȩꭓȟῂԍɘɭ ȫꬴțǣɨꭍϛ ɑᛉᚽ ѕῢϲꓮƒἴӆἄҵἱοηꭇ
           </p>
           <div className="mt-6 w-[80%] bg-black/5 p-4 rounded-lg font-mono text-sm">
             <code>
               {`{
-  "version": "1.0.0",
-  "platform": "iOS Style React",
-  "features": ["Glassmorphism", "Tab Switching", "Animations"],
-  "performance": "Excellent"
+  "ⅻἛṛꞩɨὃṇ": "1.0.2",
+  "Ꝕḷǟțϝōꝓꞧ": "öꝑƎṡ⊙ℝₘԶēḓ",
+  "ꚘӗꜽṬυꬶꬲș": ["ꝔӇᴓꬽꬲ", "ꓢƐƇᵾꝚǀƮⴘ", "ȿƱꝏꝓԸꓲƜ"],
+  "ꝓỄꞅᓮѺṋḿǻᚰԀɘ": "ꓢƐƇᵾꝚǀƮⴘ"
 }`}
             </code>
           </div>

@@ -15,50 +15,50 @@ export default function CardSlider() {
   const slides = useMemo(() => [
     {
       id: 1,
-      title: "Seamless Experience",
-      description: "Discover our intuitive interface designed for modern users",
+      title: "NeƦα⟁qu ⌬⍟xȺ",
+      description: "Ꮄ×αmƎ ⟒⎔⌖ ŦҺе ᵾnƙᴎ⍜wᴎ ᚛~⚪Δꝏϟ⚠ℵ",
       image: "https://sun9-20.userapi.com/impg/LgGZbIxxKMYGoW1SeFhGY73qQzJNkmWOt231xQ/QgqtDrA-Guk.jpg?size=1080x1080&quality=96&sign=3ad3f4b232dd1725c0c29287ecf8a79b&type=album"
     },
     {
       id: 2,
-      title: "Premium Design",
-      description: "Elegant solutions with attention to every detail",
+      title: "ꓘıռɛtıƈ ⚡︎ⴑᚔᛜ",
+      description: "Ѻրᛊꓥ ⌇⟔ ℸԊ⍟ ꓭƎყoᴎȡ ⩩⩨~⧖⫎",
       image: "https://sun9-8.userapi.com/impg/b80XlMwgkSPLcj5UFeAzsE2bcq8lGLewMaE9Gg/P1YgCAdvh_Q.jpg?size=980x1280&quality=95&sign=b117939d7f282d326224351b383898f7&type=album"
     },
     {
       id: 3,
-      title: "Innovation First",
-      description: "Stay ahead with cutting-edge technology and features",
+      title: "Ꮥⱥρρꀍιr⍷ ⚛︎⌬",
+      description: "ꞩ⟁яcλᴎα ♰꘏ ᚖꓥᛝƎ ῳƎŦ ☓☯☢⎊⌖",
       image: "https://sun9-6.userapi.com/impf/c847120/v847120079/1fa34a/bcllYjXbqvk.jpg?size=700x618&quality=96&sign=c2120d182479f7f96dd585cca23f7daa&type=album"
     },
     {
       id: 4,
-      title: "Smart Features",
-      description: "Intelligent solutions to simplify your daily tasks",
+      title: "ᛘƎꝈtշօղ ᏝჄ✧",
+      description: "յʊȿɬ աαΐƭ ʄօɾ էհҽ ƈօʍίղց օʄ Ʌℵ✧⊏⧗",
       image: "https://sun9-20.userapi.com/impg/LgGZbIxxKMYGoW1SeFhGY73qQzJNkmWOt231xQ/QgqtDrA-Guk.jpg?size=1080x1080&quality=96&sign=3ad3f4b232dd1725c0c29287ecf8a79b&type=album"
     },
     {
       id: 5,
-      title: "Elegant Interface",
-      description: "Beautiful design with focus on functionality",
+      title: "ꓤꓛꓠ⟡ꓛꓣ ⩢⍴",
+      description: "Ꭻƻῳ ῳɨʟʟ ꓘⱳøw ⍟⎊∞ տрƖɩƭ Ꝋƨ",
       image: "https://sun9-8.userapi.com/impg/b80XlMwgkSPLcj5UFeAzsE2bcq8lGLewMaE9Gg/P1YgCAdvh_Q.jpg?size=980x1280&quality=95&sign=b117939d7f282d326224351b383898f7&type=album"
     },
     {
       id: 6,
-      title: "Custom Experience",
-      description: "Personalized settings to match your preferences",
+      title: "⚇ꓢꓭꓱꓤꓚ⚆",
+      description: "ȶɦɛ ɮɛɢɨռռɨռɢ օʄ ȶɦɛ ɛռɖ ⟡⊕⌖ ⊙♎︎",
       image: "https://sun9-6.userapi.com/impf/c847120/v847120079/1fa34a/bcllYjXbqvk.jpg?size=700x618&quality=96&sign=c2120d182479f7f96dd585cca23f7daa&type=album"
     },
     {
       id: 7,
-      title: "Future Ready",
-      description: "Prepared for tomorrow with today's innovation",
+      title: "⚜︎ꚉㄗ⎊Ꚍꐦ",
+      description: "Ͽһҿ ϻῳƽʈҿɾῳ øƒ ɠꝋႻɕʈıꝋꞢ ϐɾҿѕҿꞥϯʂ",
       image: "https://sun9-20.userapi.com/impg/LgGZbIxxKMYGoW1SeFhGY73qQzJNkmWOt231xQ/QgqtDrA-Guk.jpg?size=1080x1080&quality=96&sign=3ad3f4b232dd1725c0c29287ecf8a79b&type=album"
     },
     {
       id: 8,
-      title: "Reliable Platform",
-      description: "Stable performance you can count on",
+      title: "ꬺϻꝏӃꝏȐƐ",
+      description: "Ēʌᴄɦ ɦᴏᴜʀ ᴄᴏᴜɴᴛs∿ ᴛʜᴇ ᴡᴀʏ ꓚωꝏ",
       image: "https://sun9-8.userapi.com/impg/b80XlMwgkSPLcj5UFeAzsE2bcq8lGLewMaE9Gg/P1YgCAdvh_Q.jpg?size=980x1280&quality=95&sign=b117939d7f282d326224351b383898f7&type=album"
     }
   ], []);
@@ -228,7 +228,7 @@ export default function CardSlider() {
                   <div className="absolute inset-0 pointer-events-none bg-gradient-to-tr from-transparent via-white/10 to-white/20" />
                 </div>
                 <div className="flex-1 p-3 md:p-4 flex flex-col">
-                  <span className="text-xs text-black/50 font-mono mb-1">nera*qu</span>
+                  <span className="text-xs text-black/50 font-mono mb-1">ՈƎЯα⩩QU</span>
                   <h2 className="text-base md:text-xl font-bold mb-1 md:mb-2 text-black font-mono">{slide.title}</h2>
                   <p className="text-xs md:text-sm text-black/70 font-mono line-clamp-2">{slide.description}</p>
                   
@@ -236,7 +236,7 @@ export default function CardSlider() {
                   <button className="mt-auto bg-black/80 text-white rounded-full py-1.5 px-4 
                                   font-medium text-xs md:text-sm self-start backdrop-blur-md 
                                   shadow-sm hover:bg-black/90 transition-all">
-                    Learn More
+                    ʍɑʀӄ∿Ѷ
                   </button>
                 </div>
               </div>

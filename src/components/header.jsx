@@ -7,7 +7,7 @@ export default function Header() {
   const [isScrolled, setIsScrolled] = useState(false);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const navRef = useRef(null);
-  
+
   // Добавляем эффект для отслеживания скролла
   useEffect(() => {
     const handleScroll = () => {
@@ -21,27 +21,27 @@ export default function Header() {
   const navItems = [
     { 
       id: 1, 
-      name: "Home", 
+      name: "ℕʏ⟓ⵒ⩢", 
       link: "/#",
       submenu: [
         { 
           id: 'home-1', 
-          name: "Dashboard", 
+          name: "Ԃɐѕħʙѻӓꝗꝕ", 
           link: "/#dashboard",
           submenu: [
-            { id: 'dashboard-1', name: "Analytics", link: "/#analytics" },
-            { id: 'dashboard-2', name: "Reports", link: "/#reports" },
-            { id: 'dashboard-3', name: "Settings", link: "/#settings" }
+            { id: 'dashboard-1', name: "Ǻǹɐꝇӥţı¢ʂ", link: "/#analytics" },
+            { id: 'dashboard-2', name: "ᚱẹꝓɵȓʈꞩ", link: "/#reports" },
+            { id: 'dashboard-3', name: "Ϟҿӏꞇɪȵϛʂ", link: "/#settings" }
           ]
         },
         { 
           id: 'home-2', 
-          name: "Features", 
+          name: "ꟻẹɐϯϋṝέѕ", 
           link: "/#features",
           submenu: [
-            { id: 'features-1', name: "Basic", link: "/#basic" },
-            { id: 'features-2', name: "Pro", link: "/#pro" },
-            { id: 'features-3', name: "Premium", link: "/#premium" }
+            { id: 'features-1', name: "Вɐᶊʏꞓ", link: "/#basic" },
+            { id: 'features-2', name: "ꝒᚱѦ", link: "/#pro" },
+            { id: 'features-3', name: "Ꝓŗᶒᵯɨꭒṁ", link: "/#premium" }
           ]
         }
       ],
@@ -49,30 +49,30 @@ export default function Header() {
     },
     { 
       id: 2, 
-      name: "About", 
+      name: "⟁ƎƦꓥٱꓚƐꓢ", 
       link: "/#about",
       submenu: [
-        { id: 'about-1', name: "Team", link: "/#team", submenu: [
-          { id: 'team-1', name: "Members", link: "/#members" },
-          { id: 'team-2', name: "Projects", link: "/#projects" }
+        { id: 'about-1', name: "ƖꝈᛒƸ", link: "/#team", submenu: [
+          { id: 'team-1', name: "ꝂɇɱβęƦϛ", link: "/#members" },
+          { id: 'team-2', name: "ꝐȓꭙꬴϵѸțș", link: "/#projects" }
         ] },
-        { id: 'about-2', name: "History", link: "/#history", submenu: [
-          { id: 'history-1', name: "Timeline", link: "/#timeline" },
-          { id: 'history-2', name: "Milestones", link: "/#milestones" }
+        { id: 'about-2', name: "Ӊı̣ѕтԏꭈȳ", link: "/#history", submenu: [
+          { id: 'history-1', name: "₮ḭṁẹʟȋṇɘ", link: "/#timeline" },
+          { id: 'history-2', name: "ʍɨ̂ꝇỆṧţὄṆἒṥ", link: "/#milestones" }
         ] }
       ],
       image: "https://sun9-20.userapi.com/impg/LgGZbIxxKMYGoW1SeFhGY73qQzJNkmWOt231xQ/QgqtDrA-Guk.jpg?size=1080x1080&quality=96&sign=3ad3f4b232dd1725c0c29287ecf8a79b&type=album"
     },
     { 
       id: 3, 
-      name: "Contact", 
+      name: "ƇꝊᚙɬƛꓚɬ", 
       link: "/#contact",
       submenu: [
-        { id: 'contact-1', name: "Email", link: "/#email", submenu: [
-          { id: 'email-1', name: "neraqu@msn.co", link: "/#support" },
+        { id: 'contact-1', name: "Ƹm⊆Ɨł", link: "/#email", submenu: [
+          { id: 'email-1', name: "ՈƎЯα⩩QU@ṁꞩῆ.ꓚɵ", link: "/#support" },
         ] },
-        { id: 'contact-2', name: "Phone", link: "/#phone", submenu: [
-          { id: 'phone-1', name: "+79999999999", link: "/#support" },
+        { id: 'contact-2', name: "ꝔӇᴓꬽꬲ", link: "/#phone", submenu: [
+          { id: 'phone-1', name: "+7⁹⁹999⁹⁹⁹⁹⁹", link: "/#support" },
         ] }
       ],
       image: "https://sun9-6.userapi.com/impf/c847120/v847120079/1fa34a/bcllYjXbqvk.jpg?size=700x618&quality=96&sign=c2120d182479f7f96dd585cca23f7daa&type=album"
@@ -111,7 +111,7 @@ export default function Header() {
                  backdrop-blur-lg border border-zinc-600/20 shadow-lg
                  text-white`}
     >
-      <h1 className="text-black text-xl font-bold font-mono transition-all duration-300 ml-4 md:ml-0">nera*qu</h1>
+      <h1 className="text-black text-xl font-bold font-mono transition-all duration-300 ml-4 md:ml-0">nerα*qu</h1>
       
       {/* Mobile menu button */}
       <button 
@@ -126,7 +126,7 @@ export default function Header() {
           )}
         </svg>
       </button>
-      
+
       {/* Desktop navigation */}
       <div 
         className="relative hidden md:block"

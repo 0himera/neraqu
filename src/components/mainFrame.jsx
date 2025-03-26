@@ -1,3 +1,4 @@
+import React from 'react';
 import MainframeSlider from './MainframeSlider';
 import TabSwitcher from './TabSwitcher';
 import TabContent from './TabContent';
@@ -6,35 +7,37 @@ import MiniContent from './miniContent';
 import CardSlider from './CardSlider';
 
 export default function MainFrame() {
-    const [activeTab, setActiveTab] = useState('Overview');
-    const tabs = ['Overview', 'Features', 'Details'];
+    const [activeTab, setActiveTab] = useState(0);
+    const tabs = [
+        { crypticLabel: "⟁Ϻ⊂ℜᚔƐꓴ" },
+        { crypticLabel: "ℱꚘꝈῼꭇϩ" },
+        { crypticLabel: "Δⴑℐƪꝋʟꞩ" }
+    ];
     
-    const handleTabChange = (tabName) => {
-        setActiveTab(tabName);
+    const handleTabChange = (index) => {
+        setActiveTab(index);
     };
     
     return (
         <div className="select-none">
-            {/* iOS-style Mainframe Slider */}
+            {/* Mainframe Slider */}
             <MainframeSlider />
 
             {/* Card slider */}
             <CardSlider />
             
-            {/* iOS style slide switcher component */}
+            {/* slide switcher component */}
             <TabSwitcher 
                 tabs={tabs} 
-                activeTab={activeTab} 
                 onChange={handleTabChange} 
             />
-            
+             
             {/* Tab content */}
             <TabContent 
                 activeTab={activeTab} 
-                tabs={tabs}
                 fadeIn={true}
             />
-
+             
             {/* Home slider */}
             <MiniContent />
         </div>
