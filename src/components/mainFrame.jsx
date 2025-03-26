@@ -3,6 +3,7 @@ import TabSwitcher from './TabSwitcher';
 import TabContent from './TabContent';
 import { useState } from 'react';
 import MiniContent from './miniContent';
+import CardSlider from './CardSlider';
 
 export default function MainFrame() {
     const [activeTab, setActiveTab] = useState('Overview');
@@ -16,6 +17,9 @@ export default function MainFrame() {
         <div className="select-none">
             {/* iOS-style Mainframe Slider */}
             <MainframeSlider />
+
+            {/* Card slider */}
+            <CardSlider />
             
             {/* iOS style slide switcher component */}
             <TabSwitcher 
