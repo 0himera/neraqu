@@ -99,7 +99,7 @@ export default function MainframeSlider() {
   };
   
   return (
-    <div className="w-full mt-[80px] px-4 py-8">
+    <div className="w-full mt-[80px] px-4 py-2">
       {/* Main slider container */}
       <div 
         ref={sliderRef}
