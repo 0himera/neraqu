@@ -177,6 +177,7 @@ export default function CardSlider() {
                     src={slide.image} 
                     alt={slide.title} 
                     className="h-full w-full object-cover"
+                    draggable={false}
                   />
                   {/* iOS-style image shine effect */}
                   <div className="absolute inset-0 pointer-events-none bg-gradient-to-tr from-transparent via-white/10 to-white/20" />

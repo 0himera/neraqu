@@ -145,6 +145,7 @@ export default function MainframeSlider() {
                     src={slide.image} 
                     alt={slide.title} 
                     className="h-full w-full object-cover rounded-xl shadow-lg"
+                    draggable={false}
                   />
                   {/* iOS-style image shine effect */}
                   <div className="absolute inset-0 rounded-xl pointer-events-none bg-gradient-to-tr from-transparent via-white/10 to-white/20" />
