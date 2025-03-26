@@ -1,12 +1,5 @@
-# React + Vite
-
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
-
-Currently, two official plugins are available:
-
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
-
-## Expanding the ESLint configuration
-
-If you are developing a production application, we recommend using TypeScript and enable type-aware lint rules. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+' {t7  k  $#" Zw`݀[    + 0@@ ar  +    JK   R   : h v  gL 6  !Y%j      [] &   ʜ%i  ,  R            0 h@|v  m}슫{  Y $ yՃ c집F :'+U a4 n27  t /w  i յE g    _  M  :Ŏ  3     & tM Ew     3n  B]V  x  r  e      3_|/qZ'Ez  N&  ϲ  '0  ~ (RM      M&n d?s   f    Y Y e  S Q  8 '   *u/       j eY 7zo~3  e    :   bC=    ֪ h@|     iO  J tgYⲬӊ Y Y 6  K? 8  /  C  I  x  ^     
+ b n>         }< S   ~6   W 켪ΊȢ^     Y  g f}~   ~$ 5      N9 ]=oV?A Z>  Ҷ rs   87   +    Խ    M&o  E lb   9 #" < l  Bw  (u 2 2   G;e: *k   䌈 z  H"   )   Q      6   8  4 8  9K tOY jߩ      rX 7ΟC  V  
+  q  c  Di  ۯa    K  $   | N    dQ җS"    &   7     z           ??  ~ w        ~ 
+ =/dm  Aɡv  H   #M ۶i:c 1\R ;t q  m H _ COM J  EN  Ӟ S  ?^ wL -T, J   8h     v      7' sOT  >  f   ` b Mj      Mð ʜ y Ǥ8y  >趝4S d   )    bD    -  K Е s        n   u    } uhq$  9
+JާH5: W  Ex@  h| އ  m˺       aCg  Y -  $  9 l   z 1   @|  q   C !ɮN  z  '% } /y j ]    U  H 5dN   7      @"p=ϯE    w  |I     fȪ W       {  r}6    ǫ  v _ o   r =   r} W?/ j      
