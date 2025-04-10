@@ -105,21 +105,6 @@ export default function MainframeSlider() {
 
   const maxSlide = slides.length - 1;
 
-  // Start/reset auto-slide timer
-  const startAutoPlay = () => {
-    stopAutoPlay();
-    
-    autoPlayRef.current = setInterval(() => {
-      setProgress(prev => {
-        if (prev >= 100) {
-          goToPrevSlide();
-          return 0;
-        }
-        return prev + (100 / (slideInterval / 100));
-      });
-    }, 100);
-  };
-  
   // Stop auto-slide timer
   const stopAutoPlay = () => {
     if (autoPlayRef.current) {
@@ -128,56 +113,93 @@ export default function MainframeSlider() {
     }
   };
 
-  // Initialize auto-play on mount
-  useEffect(() => {
-    startAutoPlay();
-    return stopAutoPlay;
-  }, []);
+  // Start or Reset the progress timer (only updates progress)
+  const startProgressTimer = () => {
+    stopAutoPlay(); // Clear existing interval
+    setProgress(0); // Reset progress
+    
+    autoPlayRef.current = setInterval(() => {
+      // Only update progress here
+      setProgress(prevProgress => prevProgress + (100 / (slideInterval / 100)));
+    }, 100);
+  };
 
-  // Reset auto-play when changing slides
+  // Effect to handle automatic slide change when progress reaches 100
   useEffect(() => {
-    setProgress(0);
-    startAutoPlay();
-  }, [currentSlide]);
+    if (progress >= 100 && !isDragging) {
+      setCurrentSlide(prev => (prev === maxSlide ? 0 : prev + 1));
+      // The progress will be reset by the useEffect below
+    }
+  }, [progress, isDragging, maxSlide]); 
+
+  // Effect to start/reset the progress timer when the slide changes manually or automatically
+  useEffect(() => {
+    // Don't reset if dragging, handleDragEnd will restart it
+    if (!isDragging) {
+      startProgressTimer(); 
+    }
+    // Cleanup function to stop timer when component unmounts or before effect re-runs
+    return stopAutoPlay; 
+  }, [currentSlide]); // Run when currentSlide changes
+
+  // Initialize timer on mount (this might be redundant due to above effect, but safe to keep)
+  useEffect(() => {
+    startProgressTimer();
+    return stopAutoPlay; // Cleanup on unmount
+  }, []);
 
   // Navigate to next slide with circular navigation
   const goToNextSlide = () => {
+    stopAutoPlay(); // Stop timer before manual change
     setCurrentSlide(prev => (prev === maxSlide ? 0 : prev + 1));
+    // The useEffect [currentSlide] will restart the timer
   };
 
   // Navigate to previous slide with circular navigation
   const goToPrevSlide = () => {
+    stopAutoPlay(); // Stop timer before manual change
     setCurrentSlide(prev => (prev === 0 ? maxSlide : prev - 1));
+    // The useEffect [currentSlide] will restart the timer
   };
 
   // Handle touch/mouse events
   const handleDragStart = (clientX) => {
     setIsDragging(true);
     setDragStartX(clientX);
-    stopAutoPlay();
+    stopAutoPlay(); // Stop timer during drag
   };
   
   const handleDragMove = (clientX) => {
     if (!isDragging) return;
-    
     const offset = clientX - dragStartX;
     setDragOffset(offset);
   };
   
+  // Handle touch/mouse events (Standard drag direction)
   const handleDragEnd = () => {
     if (!isDragging) return;
     
     const threshold = sliderRef.current.offsetWidth * 0.2;
+    let slideChanged = false;
     
-    if (dragOffset > threshold) {
-      goToPrevSlide();
-    } else if (dragOffset < -threshold) {
-      goToNextSlide();
+    if (dragOffset < -threshold) { 
+      // Don't call goToNextSlide directly to avoid double timer stop/start
+      setCurrentSlide(prev => (prev === maxSlide ? 0 : prev + 1));
+      slideChanged = true;
+    } else if (dragOffset > threshold) { 
+      // Don't call goToPrevSlide directly
+      setCurrentSlide(prev => (prev === 0 ? maxSlide : prev - 1));
+      slideChanged = true;
     }
     
     setIsDragging(false);
     setDragOffset(0);
-    startAutoPlay();
+    
+    // Restart timer after drag ends (useEffect[currentSlide] handles it if slide changed)
+    // Only explicitly restart here if the slide *didn't* change.
+    if (!slideChanged) {
+       startProgressTimer(); 
+    }
   };
   
   // Calculate transform for the slider container
@@ -330,24 +352,28 @@ export default function MainframeSlider() {
           ))}
         </div>
         
-        {/* Navigation controls */}
+        {/* Navigation controls (ADDED PROGRESS BAR BACK) */}
         <div className="absolute bottom-6 left-0 right-0 flex justify-center items-center gap-1.5 z-10">
           <div className="py-2 px-3 bg-black/5 backdrop-blur-md rounded-full flex items-center gap-1.5">
             {slides.map((_, index) => (
               <button
                 key={index}
-                onClick={() => setCurrentSlide(index)}
+                onClick={() => {
+                  setCurrentSlide(index); // Allow direct click navigation
+                  // Timer will restart via useEffect[currentSlide]
+                }}
                 className={`rounded-full transition-all duration-300 ease-out relative overflow-hidden
                           ${currentSlide === index 
-                            ? 'bg-black/40 w-[22px] h-[8px]' 
-                            : 'bg-black/25 w-[8px] h-[8px]'
+                            ? 'bg-black/40 w-[22px] h-[8px]' // Style for active dot (wider)
+                            : 'bg-black/25 w-[8px] h-[8px]' // Standard dot style
                           }`}
                 aria-label={`Go to slide ${index + 1}`}
               >
+                {/* Progress indicator for the active slide */}
                 {currentSlide === index && (
                   <div 
-                    className="absolute top-0 left-0 h-full bg-black/80 rounded-full transition-all duration-100"
-                    style={{ width: `${progress}%` }}
+                    className="absolute top-0 left-0 h-full bg-black/80 rounded-full"
+                    style={{ width: `${progress}%`, transition: progress === 0 ? 'none' : 'width 0.1s linear' }}
                   />
                 )}
               </button>
