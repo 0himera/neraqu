@@ -245,7 +245,7 @@ export default function MainframeSlider() {
           {slides.map((slide) => (
             <div key={slide.id} className="min-w-full h-full flex flex-col md:flex-row items-center">
               <div className="md:w-1/2 w-full p-4 md:p-12 flex flex-col justify-center">
-                <span className="text-sm text-black/50 font-mono mb-1 md:mb-2">ՈƎЯα⩩QU</span>
+                <span className="text-sm text-black/50 font-mono mb-1 md:mb-2">ՈƎЯα`QU</span>
                 {slide.id === 2 ? (
                   <h2 
                     className="text-2xl md:text-4xl font-bold mb-2 md:mb-4 font-mono relative" 
